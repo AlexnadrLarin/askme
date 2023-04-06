@@ -1,0 +1,270 @@
+body {
+    background-color: rgb(196, 209, 220);
+}
+
+main > .container {
+    padding: 60px 15px 0;
+}
+
+.full-question {
+    margin-top: 7%;
+    background-color: white;
+    height: 300px;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.full-question:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.correct-checkbox {
+    border: 3px solid black;
+    width: 25%;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.correct-checkbox > input {
+    width: 35px;
+    height: 15px;
+}
+
+.answer {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5%;
+}
+
+.answer:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.answer > button {
+    margin-top: 1%;
+}
+
+.question {
+    background-color: white;
+    height: 200px;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.question:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.question-avatar {
+    height: 130px;
+    width: 130px;
+}
+
+.question-avatar > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: solid black;
+    border-radius: 50%;
+    margin: 0 38px;
+}
+
+.question-text {
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+
+.question-header {
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+.question-header > h1 {
+    padding-right: 2%;
+}
+
+.like > input {
+    width: 20%;
+    border: solid black;
+    border-radius: 7px;
+    margin: 10px 84px;
+}
+
+.user-avatar {
+    height: 40px;
+    width: 40px;
+}
+
+.user-avatar > a > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.page-link {
+    color:black;
+    border: solid black;
+    border-radius: 7px;
+    margin: 0 8px;
+}
+
+.page-link:hover {
+    color:black;
+}
+
+.tags {
+    margin-top: 5%; 
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding-bottom: 2%;
+}
+
+.tags:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.tags > h3, h2 {
+    padding: 3.5%; 
+    display: inline;
+}
+
+.tags > h3 > a {
+    text-decoration: none;
+}
+
+.tags > h2 > a {
+    text-decoration: none;
+}
+
+.members {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding-bottom: 2%;
+}
+
+.members:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.members > h3 {
+    padding-left: 20px;
+    margin-top: 3%;
+}
+
+.settings {
+    margin-top: 2.5%; 
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 2%;
+}
+
+.settings:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.settings-button {
+    padding-top: 2%;
+    padding-left: 21%; 
+}
+
+.settings-button > button {
+    background-color: #373d5d;
+}
+
+.file-form {
+    width: 57%;
+    padding-top: 2%;
+    padding-left: 21%;
+}
+
+.registration {
+    margin-top: 2.5%; 
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 2%;
+}
+
+.registration:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.registration-button {
+    padding-top: 2%;
+    padding-left: 34.5%; 
+}
+
+.registration-button > button {
+    background-color: #373d5d;
+}
+
+.login {
+    margin-top: 2.5%; 
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 2%;
+}
+
+.login:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.login-button {
+    padding-top: 2%;
+    padding-left: 20.5%; 
+}
+
+.login-button > button {
+    background-color: #373d5d;
+}
+
+.new-question-form {
+    margin-top: 2.5%; 
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 2%;
+}
+
+.new-question-form:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.new-question-form-button {
+    padding-top: 2%;
+    padding-left: 20.5%; 
+}
+
+.new-question-form-button > button {
+    background-color: #373d5d;
+}
+
+footer {
+    background-color: rgb(104, 130, 152);
+}
+
+
+
+
+
+
