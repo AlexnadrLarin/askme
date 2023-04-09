@@ -33,7 +33,7 @@ main > .container {
     height: 15px;
 }
 
-.answer {
+.user-answer {
     background-color: white;
     border: 3px solid black;
     border-radius: 10px;
@@ -41,12 +41,12 @@ main > .container {
     margin-bottom: 5%;
 }
 
-.answer:hover {
+.user-answer:hover {
     background-color: rgb(237, 237, 237);
     border: 3px solid rgb(215, 215, 215);
 }
 
-.answer > button {
+.user-answer > button {
     margin-top: 1%;
 }
 
@@ -92,11 +92,58 @@ main > .container {
     padding-right: 2%;
 }
 
-.like > input {
-    width: 20%;
+.answer {
+    background-color: white;
+    height: 200px;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.answer:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
+}
+
+.answer-avatar {
+    height: 130px;
+    width: 130px;
+}
+
+.answer-avatar > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: solid black;
+    border-radius: 50%;
+    margin: 0 38px;
+}
+
+.answer-text {
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+
+.answer-header {
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+.answer-header > h1 {
+    padding-right: 2%;
+}
+
+.like {
+    width: 24%;
     border: solid black;
     border-radius: 7px;
-    margin: 10px 84px;
+    margin: 10px 80px;
+}
+
+.like:hover {
+    background-color: rgb(237, 237, 237);
+    border: 3px solid rgb(215, 215, 215);
 }
 
 .user-avatar {
@@ -123,7 +170,7 @@ main > .container {
 }
 
 .tags {
-    margin-top: 5%; 
+    margin-top: 5%;
     background-color: white;
     border: 3px solid black;
     border-radius: 10px;
@@ -136,7 +183,7 @@ main > .container {
 }
 
 .tags > h3, h2 {
-    padding: 3.5%; 
+    padding: 3.5%;
     display: inline;
 }
 
@@ -166,7 +213,7 @@ main > .container {
 }
 
 .settings {
-    margin-top: 2.5%; 
+    margin-top: 2.5%;
     background-color: white;
     border: 3px solid black;
     border-radius: 10px;
@@ -180,7 +227,7 @@ main > .container {
 
 .settings-button {
     padding-top: 2%;
-    padding-left: 21%; 
+    padding-left: 21%;
 }
 
 .settings-button > button {
@@ -194,7 +241,7 @@ main > .container {
 }
 
 .registration {
-    margin-top: 2.5%; 
+    margin-top: 2.5%;
     background-color: white;
     border: 3px solid black;
     border-radius: 10px;
@@ -208,7 +255,7 @@ main > .container {
 
 .registration-button {
     padding-top: 2%;
-    padding-left: 34.5%; 
+    padding-left: 34.5%;
 }
 
 .registration-button > button {
@@ -216,7 +263,7 @@ main > .container {
 }
 
 .login {
-    margin-top: 2.5%; 
+    margin-top: 2.5%;
     background-color: white;
     border: 3px solid black;
     border-radius: 10px;
@@ -230,7 +277,7 @@ main > .container {
 
 .login-button {
     padding-top: 2%;
-    padding-left: 20.5%; 
+    padding-left: 20.5%;
 }
 
 .login-button > button {
@@ -238,7 +285,7 @@ main > .container {
 }
 
 .new-question-form {
-    margin-top: 2.5%; 
+    margin-top: 2.5%;
     background-color: white;
     border: 3px solid black;
     border-radius: 10px;
@@ -252,7 +299,7 @@ main > .container {
 
 .new-question-form-button {
     padding-top: 2%;
-    padding-left: 20.5%; 
+    padding-left: 20.5%;
 }
 
 .new-question-form-button > button {
@@ -262,9 +309,3 @@ main > .container {
 footer {
     background-color: rgb(104, 130, 152);
 }
-
-
-
-
-
-
