@@ -13,7 +13,7 @@ class Profile(models.Model):
 
 
 class Question(models.Model):
-    author = models.OneToOneField(Profile, on_delete=models.PROTECT)
+    author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     title = models.CharField(max_length=255, blank=False)
     text = models.TextField(blank=False)
     rating = models.IntegerField(default=0)
@@ -24,8 +24,8 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    author = models.OneToOneField(Profile, on_delete=models.PROTECT)
-    question = models.OneToOneField(Question, on_delete=models.PROTECT)
+    author = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.TextField(blank=False)
     rating = models.IntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
