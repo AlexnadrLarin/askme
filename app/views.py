@@ -3,7 +3,6 @@ import random
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 
-from .models import QUESTIONS, ANSWERS, TAG_NAMES, MEMBERS
 
 
 def paginate(objects_list, request, per_page=10):
