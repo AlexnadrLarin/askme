@@ -4,7 +4,10 @@
             <div class="question-avatar">
                 <img src="../static/img/avatar6.png"alt="avatar">
             </div>
-            <button class="like">Like</button>
+            <div class="like">
+                <p class="like-counter">{{ question.rating }}</p>
+                <button class="like-button">Like</button>
+            </div>
         </div>
         <div class="col-8">
             <a href="{% url "question" question.id %}" style="font-size: 32px;">{{ question.title }}</a>
@@ -15,7 +18,7 @@
                 </div>
                 <div class="col-8">
                     Tags:
-                    {% for tag in question.tags %}
+                    {% for tag in tags %}
                         <a href="{% url "tag" tag.tag_name %}">{{ tag.tag_name }}</a>
                     {% endfor %}
                 </div>

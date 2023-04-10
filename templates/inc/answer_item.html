@@ -4,7 +4,10 @@
             <div class="answer-avatar">
                 <img src="../static/img/avatar6.png" alt="avatar">
             </div>
-            <button class="like">Like</button>
+            <div class="like">
+                    <p class="like-counter">{{ question.rating }}</p>
+                    <button class="like-button">Like</button>
+                </div>
         </div>
         <div class="col-8">
             <div class="answer-text">{{ answer.text }}</div>
