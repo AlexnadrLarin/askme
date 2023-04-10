@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="question-header">
-        <h1>Tag: {{ tag_name }}</h1>
+        <h1>Tag: {{ tag.tag_name }}</h1>
     </div>
     {% for question in page_obj %}
         {% include "inc/question_item.html" %}

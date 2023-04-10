@@ -24,11 +24,13 @@
             </div>
         </div>
     </div>
-    <hr>
-    <h1>Answers</h1>
-    {% for answer in page_obj %}
-        {% include "inc/answer_item.html" %}
-    {% endfor %}
+    {% if page_obj|length > 0 %}
+        <hr>
+        <h1>Answers</h1>
+        {% for answer in page_obj %}
+            {% include "inc/answer_item.html" %}
+        {% endfor %}
+    {% endif %}
     <hr>
     <div class="user-answer">
         <h3>Your Answer</h3>

@@ -12,12 +12,32 @@ class Profile(models.Model):
         return self.user.username
 
 
+class QuestionManager(models.Manager):
+    def date_sort(self):
+        return self.order_by('-date_created')
+
+    def rating_sort(self):
+        return self.order_by('-rating')
+
+    def question_tag_sort(self, tag_name):
+        question_list = []
+        for question in self.all():
+            try:
+                if question.tag_set.get(tag_name=tag_name):
+                    question_list.append(question)
+            except:
+                continue
+        return question_list
+
+
 class Question(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     title = models.CharField(max_length=255, blank=False)
     text = models.TextField(blank=False)
     rating = models.IntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
+
+    objects = QuestionManager()
 
     def __str__(self):
         return self.title
