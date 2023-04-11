@@ -1,5 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+
+
+class ProfileManager(models.Manager):
+
+    def profile_sort(self):
+        return self.order_by("-rating")[:5]
 
 
 # Extending User Model Using a One-To-One Link
@@ -7,6 +14,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(default='static/img/avatar6.png', upload_to='uploads')
     rating = models.IntegerField(default=0)
+
+    objects = ProfileManager()
 
     def __str__(self):
         return self.user.username
@@ -25,7 +34,7 @@ class QuestionManager(models.Manager):
             try:
                 if question.tag_set.get(tag_name=tag_name):
                     question_list.append(question)
-            except:
+            except ObjectDoesNotExist:
                 continue
         return question_list
 
