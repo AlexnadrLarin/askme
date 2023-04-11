@@ -136,14 +136,14 @@ main > .container {
 
 .like {
     margin-top: 6%;
-    margin-left: 33%;
+    margin-left: 26%;
 }
 
 .like-counter {
     display: inline;
     border: solid black;
     border-radius: 7px;
-    padding: 3.5%;
+    padding: 3%;
 
 }
 

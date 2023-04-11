@@ -14,7 +14,7 @@ def paginate(objects_list, request, per_page=10):
 
 
 context = {'members': Profile.objects.profile_sort(),
-           'tags': Tag.objects.all()[:10]}
+           'tags': Tag.objects.all()[:9]}
 
 
 def index(request):
@@ -45,7 +45,7 @@ def hot(request):
 
 def question(request, question_id):
     try:
-        context['page_obj'] = paginate(Answer.objects.filter(question=question_id), request)
+        context['page_obj'] = paginate(Answer.objects.filter(question=question_id).order_by("-rating"), request)
         context['question'] = Question.objects.get(id=question_id)
         return render(request, 'question.html', context)
     except ObjectDoesNotExist:
