@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
+import django.contrib.auth as auth
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
+from .forms import LoginForm
 from .models import Question, Answer, Tag, Profile
 
 
@@ -23,9 +27,21 @@ def index(request):
 
 
 def login(request):
-    return render(request, 'login.html', context)
+    if request.method == 'GET':
+        login_form = LoginForm()
+    elif request.method == 'POST':
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            user = auth.authenticate(request=request, **login_form.cleaned_data)
+            if user:
+                auth.login(request, user)
+                return redirect(reverse('root'))
+            login_form.add_error(None, "Invalid username or password!")
+    context['form'] = login_form
+    return render(request, "login.html", context)
 
 
+@login_required(redirect_field_name="my_redirect_field")
 def settings(request):
     return render(request, 'settings.html', context)
 
@@ -34,6 +50,7 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 
+@login_required(redirect_field_name="my_redirect_field")
 def ask(request):
     return render(request, 'ask.html', context)
 

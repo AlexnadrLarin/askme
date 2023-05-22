@@ -1,29 +1,26 @@
 {% extends "inc/base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
+
+    {% if continue %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
     <h1 class="mt-5">Login</h1>
     <div class="login">
-        <h3 style="color: red;">Sorry, wrong email or password!</h3>
-        <form>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10 mt">
-                    <input type="email" class="form-control" i placeholder="name@example.com">
-                </div>
+        <form action="{% url "login" %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div>
+                <button class="btn btn-dark" type="submit" value="{{ continue }}">Login</button>
             </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10 mt">
-                    <input type="password" class="form-control" placeholder="Password">
-                </div>
-            </div>
-            <div class="col-sm-10 mt">
-                <div class="login-button">
-                    <button class="btn btn-dark" type="submit">Login</button>
-                </div>
-            </div>
-            <div class="col-sm-10 mt-2">
-                <a style="margin-left: 20.5%;" href="{% url "signup" %}">create new account</a>
+            <div>
+                <a href="{% url "signup" %}">create new account</a>
             </div>
         </form>
     </div>
