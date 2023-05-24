@@ -5,8 +5,9 @@ from django.core.exceptions import ObjectDoesNotExist
 import django.contrib.auth as auth
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
-from .forms import LoginForm
+from .forms import LoginForm, CreateUserForm
 from .models import Question, Answer, Tag, Profile
 
 
@@ -35,22 +36,36 @@ def login(request):
             user = auth.authenticate(request=request, **login_form.cleaned_data)
             if user:
                 auth.login(request, user)
+                messages.success(request, "Log in successfully!")
                 return redirect(reverse('root'))
             login_form.add_error(None, "Invalid username or password!")
     context['form'] = login_form
     return render(request, "login.html", context)
 
 
-@login_required(redirect_field_name="my_redirect_field")
+@login_required(login_url="login")
 def settings(request):
     return render(request, 'settings.html', context)
 
 
 def signup(request):
-    return render(request, 'signup.html', context)
+    if request.user.is_authenticated:
+        messages.info(request, "Already registered!" )
+        return redirect(reverse('root'))
+    else:
+        signup_form = CreateUserForm(request.POST)
+        if request.method == 'POST':
+            if signup_form.is_valid():
+                signup_form.save()
+                messages.success(request, "Account was created for " + signup_form.cleaned_data.get("username"))
+                return redirect(reverse('root'))
+            else:
+                messages.error(request, "It didn't save!")
+        context['form'] = signup_form
+        return render(request, 'signup.html', context)
 
 
-@login_required(redirect_field_name="my_redirect_field")
+@login_required(login_url="login")
 def ask(request):
     return render(request, 'ask.html', context)
 

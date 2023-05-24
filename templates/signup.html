@@ -1,44 +1,14 @@
 {% extends "inc/base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
 <h1 class="mt-5">Registration</h1>
 <div class="registration">
-    <h3 style="color: red;">Sorry, incorrect input format!</h3>
-    <form>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Login</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="user">
-            </div>
-        </div>
-        <div class="form-group row mt-3">
-            <label class="col-sm-3 col-form-label">Email</label>
-            <div class="col-sm-9">
-                <input type="email" class="form-control" placeholder="name@example.com">
-            </div>
-        </div>
-        <div class="form-group row mt-3">
-            <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
-            <div class="col-sm-9">
-                <input type="password" class="form-control" placeholder="Password">
-            </div>
-        </div>
-        <div class="form-group row mt-3">
-            <label for="inputPassword" class="col-sm-3 col-form-label">Repeat password</label>
-            <div class="col-sm-9">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-            </div>
-        </div>
-        <div class="form-group row mt-3">
-            <label class="col-sm-3 col-form-label">Upload avatar</label>
-            <div class="col-sm-9 mt">
-                <input type="file" class="form-control"/>
-            </div>
-            <div class="col-sm-9">
-                <div class="registration-button">
-                    <button class="btn btn-dark" type="submit">Save</button>
-                </div>
-            </div>
+    <form action="{% url "signup" %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div>
+            <button class="btn btn-dark" type="submit">Save</button>
         </div>
     </form>
 </div>
