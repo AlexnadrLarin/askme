@@ -22,25 +22,35 @@ context = {'members': Profile.objects.profile_sort(),
            'tags': Tag.objects.all()[:9]}
 
 
+def logout(request):
+    auth.logout(request)
+    messages.info(request, "Log out successfully!")
+    return redirect(reverse('root'))
+
+
 def index(request):
     context['page_obj'] = paginate(Question.objects.date_sort(), request)
     return render(request, 'index.html', context)
 
 
 def login(request):
-    if request.method == 'GET':
-        login_form = LoginForm()
-    elif request.method == 'POST':
-        login_form = LoginForm(request.POST)
-        if login_form.is_valid():
-            user = auth.authenticate(request=request, **login_form.cleaned_data)
-            if user:
-                auth.login(request, user)
-                messages.success(request, "Log in successfully!")
-                return redirect(reverse('root'))
-            login_form.add_error(None, "Invalid username or password!")
-    context['form'] = login_form
-    return render(request, "login.html", context)
+    if request.user.is_authenticated:
+        messages.info(request, "Already log in!" )
+        return redirect(reverse('root'))
+    else:
+        if request.method == 'GET':
+            login_form = LoginForm()
+        elif request.method == 'POST':
+            login_form = LoginForm(request.POST)
+            if login_form.is_valid():
+                user = auth.authenticate(request=request, **login_form.cleaned_data)
+                if user:
+                    auth.login(request, user)
+                    messages.success(request, "Log in successfully!")
+                    return redirect(reverse('root'))
+                login_form.add_error(None, "Invalid username or password!")
+        context['form'] = login_form
+        return render(request, "login.html", context)
 
 
 @login_required(login_url="login")
