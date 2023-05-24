@@ -269,11 +269,6 @@ main > .container {
     border: 3px solid rgb(215, 215, 215);
 }
 
-.registration-button {
-    padding-top: 2%;
-    padding-left: 34.5%;
-}
-
 .registration-button > button {
     background-color: #373d5d;
 }
@@ -324,4 +319,36 @@ main > .container {
 
 footer {
     background-color: rgb(104, 130, 152);
+}
+
+.badge-light {
+    margin-top: 2.5em;
+}
+.errorlist {
+    list-style: none;
+    padding-left: 0px;
+    opacity: 0.8;
+    color: #dc3545;
+    font-size: 12px;
+}
+.msg {
+    margin: 0 !important;
+    margin-bottom: 4px !important;
+    margin-top: 4px !important;
+}
+.messages {
+    z-index: 100;
+    position: fixed;
+    right: 2em;
+    margin-top: -1em;
+    list-style: none;
+    text-align: right;
+}
+.alert {
+    margin-top: 1rem;
+}
+.alert-error {
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
 }

@@ -28,6 +28,7 @@
         </form>
       </div>
       <div class="row">
+          {% if user.is_authenticated %}
           <div class="col-4">
               <a class="btn btn-success" type="submit" href="{% url "ask" %}">Ask</a>
           </div>
@@ -38,15 +39,21 @@
         </div>
         <div class="col-4">
             <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                User
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="{% url "settings" %}">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Log Out</a></li>
-                </ul>
+
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="{% url "settings" %}">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Log Out</a></li>
+                    </ul>
             </div>
         </div>
+          {% else %}
+          <div>
+              <a class="btn btn-outline-light" href="{% url "login" %}">Log in</a>
+                <a class="btn btn-outline-light" href="{% url "signup" %}">Sign Up</a>
+          </div>
+
+          {% endif %}
       </div>
     </div>
   </nav>
@@ -56,6 +63,17 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
+                <div class="messages" id="messages-list">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.tags %}
+                                <div class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
+                            {% else %}
+                                <div class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
                 {% block content %}{% endblock %}
                 {% include "inc/pagination.html" %}
             </div>

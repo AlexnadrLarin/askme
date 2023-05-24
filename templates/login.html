@@ -2,15 +2,6 @@
 {% load bootstrap5 %}
 
 {% block content %}
-
-    {% if continue %}
-        {% if user.is_authenticated %}
-            <p>Your account doesn't have access to this page. To proceed,
-            please login with an account that has access.</p>
-        {% else %}
-            <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
     <h1 class="mt-5">Login</h1>
     <div class="login">
         <form action="{% url "login" %}" method="post">
