@@ -1,33 +1,15 @@
 {% extends "inc/base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
-    <h1 class="mt-5">New Question</h1>
-    <div class="new-question-form">
-        <h3 style="color: red;">Sorry, incorrect input format!</h3>
-        <form>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Title</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Input title there...">
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-2 col-form-label">Text</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="8" placeholder="Input text there..."></textarea>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-2 col-form-label">Tags</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Input tags there...">
-                </div>
-            </div>
-            <div class="col-sm-10 mt">
-                <div class="new-question-form-button">
-                    <button class="btn btn-dark" type="submit">Ask</button>
-                </div>
-            </div>
-        </form>
-    </div>
+    {% if user.is_authenticated %}
+        <h1 class="mt-5">New Question</h1>
+        <div class="new-question-form">
+            <form action="{% url "ask" %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form question_form %}
+                <button class="btn btn-dark" type="submit">Ask</button>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}

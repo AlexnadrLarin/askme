@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .forms import LoginForm, CreateUserForm
+
+from .forms import LoginForm, CreateUserForm, ProfileForm, UpdateUserForm, QuestionForm, AnswerForm
 from .models import Question, Answer, Tag, Profile
 
 
@@ -21,6 +22,10 @@ def paginate(objects_list, request, per_page=10):
 
 def username_exists(username):
     return User.objects.filter(username=username).exists()
+
+
+def question_exists(title):
+    return Question.objects.filter(title=title).exists()
 
 
 context = {'members': Profile.objects.profile_sort(),
@@ -58,7 +63,6 @@ def login(request):
         return render(request, "login.html", context)
 
 
-
 @login_required(login_url="login")
 def profile_edit(request):
     if request.method == "POST":
@@ -72,7 +76,7 @@ def profile_edit(request):
         if profile_form.is_valid():
             profile_form.save()
         return redirect(reverse('profile_edit'))
-    else:
+    elif request.method == "GET":
         user_form = UpdateUserForm(instance=request.user)
         profile_form = ProfileForm(request.FILES, instance=request.user.profile)
     context['user_form'] = user_form
@@ -85,23 +89,46 @@ def signup(request):
         messages.info(request, "Already registered!" )
         return redirect(reverse('root'))
     else:
-        signup_form = CreateUserForm(request.POST)
         if request.method == 'POST':
+            signup_form = CreateUserForm(request.POST)
             if signup_form.is_valid():
                 if not username_exists(signup_form.cleaned_data.get('username')):
                     signup_form.save()
                     messages.success(request, "Account was created for " + signup_form.cleaned_data.get("username"))
+                    new_user = auth.authenticate(username=signup_form.cleaned_data['username'],
+                                            password=signup_form.cleaned_data['password1'],
+                                            )
+                    auth.login(request, new_user)
                     return redirect(reverse('root'))
                 else:
                     messages.error(request, "Username is already exists!")
             else:
                 messages.error(request, "It didn't save!")
+        elif request.method == 'GET':
+            signup_form = CreateUserForm()
+
         context['form'] = signup_form
         return render(request, 'signup.html', context)
 
 
 @login_required(login_url="login")
 def ask(request):
+    if request.method == 'GET':
+        question_form = QuestionForm()
+    if request.method == "POST":
+        question_form = QuestionForm(request.POST)
+        if question_form.is_valid():
+            if not question_exists(question_form.cleaned_data.get('title')):
+                question = question_form.save(commit=False)
+                question.author = request.user.profile
+                question.save()
+                messages.success(request, "Question was created!")
+                return redirect("question", question_id=question.id)
+            else:
+                messages.error(request, "Question is already exists!")
+        else:
+            messages.error(request, "It didn't save!")
+    context['question_form'] = question_form
     return render(request, 'ask.html', context)
 
 
@@ -114,6 +141,21 @@ def question(request, question_id):
     try:
         context['page_obj'] = paginate(Answer.objects.filter(question=question_id).order_by("-rating"), request)
         context['question'] = Question.objects.get(id=question_id)
+        if request.method == 'GET':
+            answer_form = AnswerForm()
+            print(1)
+        if request.method == 'POST':
+            answer_form = AnswerForm(request.POST)
+            if answer_form.is_valid():
+                answer = answer_form.save(commit=False)
+                answer.question = context['question']
+                answer.author = request.user.profile
+                answer.save()
+                messages.success(request, "Answer was created!")
+                return redirect("question", question_id=question_id)
+            else:
+                messages.error(request, "It didn't save!")
+        context['answer_form'] = answer_form
         return render(request, 'question.html', context)
     except ObjectDoesNotExist:
         raise Http404

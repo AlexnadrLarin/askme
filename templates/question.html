@@ -1,4 +1,5 @@
 {% extends "inc/base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
     <div class="full-question">
@@ -17,7 +18,7 @@
                 <div class="question-text">{{ question.text }}</div>
                 <div class="col-8">
                     Tags:
-                    {% for tag in  tags %}
+                    {% for tag in tags %}
                         <a href="{% url "tag" tag.tag_name %}">{{ tag.tag_name }}</a>
                     {% endfor %}
                 </div>
@@ -32,11 +33,14 @@
         {% endfor %}
     {% endif %}
     <hr>
-    <div class="user-answer">
-        <h3>Your Answer</h3>
-        <div class="form-group">
-            <textarea class="form-control" rows="3"></textarea>
+    {% if user.is_authenticated %}
+        <div class="user-answer">
+            <h3>Your Answer</h3>
+            <form action="{% url "question" question.id %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form answer_form %}
+                <button class="btn btn-dark" style="background-color: #373d5d;"type="submit">Answer</button>
+            </form>
         </div>
-        <button class="btn btn-dark" style="background-color: #373d5d;"type="submit">Answer</button>
-    </div>
+    {% endif %}
 {% endblock %}

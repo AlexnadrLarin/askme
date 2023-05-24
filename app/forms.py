@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, Question, Tag, Answer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -28,4 +28,13 @@ class UpdateUserForm(forms.ModelForm):
         fields = ['username', 'email']
 
 
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['title', 'text']
 
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['text']

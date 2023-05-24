@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.signals import post_save
+
+
 
 
 class ProfileManager(models.Manager):
@@ -68,4 +71,12 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
+
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        user_profile = Profile(user=instance)
+        user_profile.save()
+
+
+post_save.connect(create_profile, sender=User)
 
