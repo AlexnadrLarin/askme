@@ -8,6 +8,7 @@
             <form action="{% url "ask" %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form question_form %}
+                {% bootstrap_form tag_form %}
                 <button class="btn btn-dark" type="submit">Ask</button>
             </form>
         </div>

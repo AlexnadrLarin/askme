@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 
 
-from .forms import LoginForm, CreateUserForm, ProfileForm, UpdateUserForm, QuestionForm, AnswerForm
+from .forms import LoginForm, CreateUserForm, ProfileForm, UpdateUserForm, QuestionForm, AnswerForm, TagForm
 from .models import Question, Answer, Tag, Profile
 
 
@@ -68,13 +68,21 @@ def profile_edit(request):
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if user_form.is_valid():
+        if user_form.is_valid() and user_form.changed_data != []:
             if not username_exists(user_form.cleaned_data.get('username')):
                 user_form.save()
+                messages.success(request, "User data changed successfully!")
             else:
-                messages.error(request, "Username is already exists!")
-        if profile_form.is_valid():
-            profile_form.save()
+                messages.error(request, "User already exists!")
+
+        if profile_form.changed_data:
+            if profile_form.is_valid():
+                print(profile_form.changed_data)
+                profile_form.save()
+                messages.success(request, "Photo changed successfully!")
+            else:
+                messages.error(request, "Invalid photo format!")
+
         return redirect(reverse('profile_edit'))
     elif request.method == "GET":
         user_form = UpdateUserForm(instance=request.user)
@@ -115,12 +123,16 @@ def signup(request):
 def ask(request):
     if request.method == 'GET':
         question_form = QuestionForm()
+        tag_form = TagForm()
     if request.method == "POST":
         question_form = QuestionForm(request.POST)
+        tag_form = TagForm()
         if question_form.is_valid():
             if not question_exists(question_form.cleaned_data.get('title')):
                 question = question_form.save(commit=False)
                 question.author = request.user.profile
+                tag_names = request.POST.get("tag_name").split(" ")
+
                 question.save()
                 messages.success(request, "Question was created!")
                 return redirect("question", question_id=question.id)
@@ -129,6 +141,7 @@ def ask(request):
         else:
             messages.error(request, "It didn't save!")
     context['question_form'] = question_form
+    context['tag_form'] = tag_form
     return render(request, 'ask.html', context)
 
 
@@ -143,7 +156,6 @@ def question(request, question_id):
         context['question'] = Question.objects.get(id=question_id)
         if request.method == 'GET':
             answer_form = AnswerForm()
-            print(1)
         if request.method == 'POST':
             answer_form = AnswerForm(request.POST)
             if answer_form.is_valid():
